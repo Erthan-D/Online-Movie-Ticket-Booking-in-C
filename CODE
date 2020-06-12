@@ -1,0 +1,590 @@
+/*======================^# Online Movie Ticket Booking #^==================*/
+
+
+
+/*------------------------DAA LAB PROJECT 2020----------------------------*/
+
+#include<dos.h>
+#include<time.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<ctype.h>
+/*-------------------structure declaration---------------------------------*/
+   struct theatre
+   {
+	char tname[40];
+	struct
+	{
+	   char mname[30];
+	   int cost;
+	   char showtype[30];
+	}movie[10];
+   };
+/*-------------------function declaration-----------------------------------*/
+void movielist(void);
+void printline(void);
+void space(void);
+void addmov(void);
+void addtheatre(void);
+void user_login(void);
+void searchmovie(void);
+void displaymovie(void);
+void displaytheatre(void);
+void searchtheatre(void);
+void bookticket(void);
+void ticketbookd(void);
+
+
+
+/*-------------------------Main function------------------------------------*/
+void main()
+{
+int op,ai,aai,aat,ui,uui,uut;int tbd;int apt; FILE *ufp;
+char kd_password[100]="Erthan";
+char userpassword[100]; char usname[20],usph[100],usem[30];clrscr();
+
+start_menu:  printf("\n");
+     printline();printf("\n");
+     space();
+     printf("\3  Online Movie Ticket Booking \3\n");
+     printline();
+     space();
+     puts("PRESS\n");
+     printf("1.Admin\t 2.USER\t 3.Exit:");
+     scanf("%d",&op);
+     switch(op)
+     {
+case 1:printline();
+		  printf("\n");
+		  space();
+	     printf("ADMIN LOGIN");
+	     printf("\n");
+	     printline();
+Again_Password:	     printf("\nPASSWORD:");
+		     scanf("%s",userpassword);
+		    if(strcmp(kd_password,userpassword)==0)
+		    { printf("\n");printline();
+		    printf("\n\3 ADMIN LOGGED IN \3"); printf("\n");printline();
+Back_admin:  printf("\n PRESS:\t1.ADD MOV\t2.THEATRE SETTING\n\t3.USER LOGIN INFO\t4.MAIN MENU\t5.BOOK TICKRT DETAILS\t6.EXIT:\n");
+	     scanf("%d",&ai);
+/*===================Admin Menu SWitch case=====================================*/
+	     switch(ai)
+	     {
+		    case 1:addmov(); printline();printf("\n");
+		       printf("\nPRESS 1.ADD_MOV 2.ADMIN MENU 3.MAIN MENU 4.EXIT:\n");
+		     scanf("%d",&aai);
+		     if(aai==1)
+		     {
+		     addmov();
+		     }
+		     else if(aai==2)
+		     {
+		     goto Back_admin;
+		     }
+		     else if(aai==3)
+		     {
+		     goto start_menu;
+		     }
+		     else
+		     {printline();
+		      printf("\n\1 Thanks for Visiting \3\n");
+		      printline();
+		      sleep(3);
+		     exit(0);
+		     }
+		     break;
+		case 2:printline();printf("\n");
+			space();
+		       printf("THEATRE SETTING");  printf("\n");printline();
+		       printline();
+		      printf("\nPRERSS\t1.ADD THEATRE\t2.ADD MOVIE\t3.ADMIN MENU\n\t\a4.MAIN MENU\T 5.exit:\n");   printline();  printf("\n");
+		       scanf("%d",&aat);
+                      switch(aat)
+		       {
+			case 1:addtheatre();  printline();
+				     printf("\n1.ADD THEATRE\t2.ADMIN MENU\t3.MAIN MENU\t4.EXIT:\n");  printline();  printf("\n");
+				     scanf("%d",&aat);
+			       if(aat==1)
+			       {
+			       addtheatre();
+			       }
+			       else if(aat==2)
+			      {
+			       goto Back_admin;
+			       }
+			      else if(aat==3)
+			      {
+			      goto start_menu;
+			       }
+			      else
+			      { printline();
+			      printf("\n\3 Thanks for Visitin \3\n");
+			      printline();
+			      sleep(3);
+			      exit(0);
+			       }
+		     case 2:addmov();   printline();
+		     printf("\n1.ADD MOVIE\t2.ADMIN MENU\t3.MAIN MENU\t4.EXIT:\n"); printline();  printf("\n");
+			     scanf("%d",&aat);
+			      if(aat==1)
+			     {
+			     addmov();
+
+			     }
+			     if(aat==2)
+			     {
+			     goto Back_admin;
+			     }
+			     if(aat==3)
+			     {
+			     goto start_menu;
+
+			     }
+			     else
+			     {printline();
+			      printf("\n\2 Thanks for Visiting \3");
+
+			      printline();  sleep(3);
+			     exit(0);
+			     }
+			     break;
+
+		     case 3:goto Back_admin;
+
+		     case 4:goto start_menu;
+
+		     default: printf("\n");printline();
+			      printf("\n\3 Thanks for Visiting \3\n");
+			      printline();
+			      sleep(3);
+			      exit(0);
+			      break;
+		     }
+		     break;
+	   case 3:printline();printf("\n");
+		   space();
+		   printf("USER LOGIN HISTORY");
+		   user_login();  printf("\n");printline();
+		    printf("\n1.View again\t2.ADMIN MENU\t3.MAIN MENU\t4.EXIT:\n");  printline();  printf("\n");
+			     scanf("%d",&aat);
+
+			     if(aat==1)
+			     {
+			     user_login();
+
+			     }
+			     else if(aat==2)
+			     {
+			     goto Back_admin;
+
+			     }
+			     else if(aat==3)
+			     {
+			     goto start_menu;
+
+			     }
+			     else{ printf("\n");
+			      printline();
+			      printf("\n\1 Thanks for Visiting \3\n");printline();
+			      sleep(3);
+			     exit(0);
+			     }
+			     break;
+	   case 4: goto start_menu;
+
+	   case 5:ticketbookd();
+		   printf("\n");printline();
+		   printf("\nPress 1.Main Menu 2.Admin menu 3.exit:\n"); printline();  printf("\n");
+		   scanf("%d",&tbd);
+		   if(tbd==1){goto start_menu;}else if(tbd==2){goto Back_admin;} else{printf("\n");printline(); printf("\3 Thanks for Visiting \3"); printline();  printf("\n");sleep(3); exit(0);}
+		   break;
+	   default:  printf("\n");printline();printf("\n\3 Thanks for visiting \3\n"); printline();  printf("\n");sleep(3);
+		      exit(0);
+			  break;
+	 }
+	 }
+      else
+      {
+	   printf("\nInvalid Password\n");     printline();
+	   printf("\nPRESS\t1.Main menu\t2.Re-Enter:\n");  printline();  printf("\n");
+	    scanf("%d",&apt);
+	  if(apt==1)
+	    {   goto start_menu;  }
+	 else
+	    { goto Again_Password;}
+    }
+case 2:printline();printf("\n");
+	space();
+	printf("USER MODE\n");    printf("\n");
+	printline();
+	ufp=fopen("ufile","a");
+	printf("\nEnter Name:\t");
+	scanf("%s",usname);
+	printf("\nEnter Phone number:\t");
+	scanf("%s",usph);
+	printf("\nEnter E-mail ID:\t");
+	scanf("%s",usem);
+	fprintf(ufp,"\n%s\t%s\t%s",usname,usph,usem);
+	fclose(ufp);
+ user_menu:
+	 printf("\n"); printline();
+	printf("\nPRESS\n 1.Search Movie\t2.Search Theatre\n3.Book_ticket\t4.list of movies\n5.list of theatre\t6.exit:\n"); printline();  printf("\n");
+	scanf("%d",&ui);
+	switch(ui)
+	{
+	case 1:searchmovie();
+		printf("\n");printline();
+		printf("\nPress\n1.Search movie\t2.User Menu\n3.Main menu\t4.exit:\n"); printline();  printf("\n");
+		scanf("%d",&uui);
+		if(uui==1){ searchmovie();}else if(uui==2){goto user_menu;}else if(uui==3){goto start_menu;}
+		else{
+		printf("\n");printline();
+
+		printf("\n\3 Thanks for Visiting \3\n"); printline();  printf("\n"); sleep(3);
+		exit(0); }
+		break;
+
+	case 2:searchtheatre();
+		printf("\n");printline();
+		printf("\nPress\n1.Search Theatre\t2.User Menu\n3.Main menu\t4.exit:\n"); printline();  printf("\n");
+		scanf("%d",&uui);
+		if(uui==1){ searchtheatre();}else if(uui==2){goto user_menu;}else if(uui==3){goto start_menu;}
+		else{ printf("\n");printline();
+		 printf("\n#1Thanks for Visiting"); printline();  printf("\n"); sleep(3);
+		exit(0);  }
+		break;
+       case 3:bookticket();
+		       printf("\nTICKET BOOKED");
+	       printf("\n\3 Thanks for Visiting \3\n");
+	       goto start_menu;
+
+       case 4:displaymovie();
+	       goto user_menu;
+
+       case 5:displaytheatre();
+	       goto user_menu;
+
+       default: printf("\n");printline();
+
+	       printf("\n\3 Thank for Visiting \3\n"); printline();  printf("\n"); sleep(3);
+	       exit(0);
+	       break;}
+     break;
+ default:printf("\n");printline();
+
+	 printf("\n\3 Thanks for Visiting \3\n");printline();printf("\n");sleep(3);
+	 exit(0);
+	 break;
+}
+
+printf("\n");
+printline();
+getch();
+}
+
+void addmov()
+{
+char addmov[100];char admov[100];     
+int i;
+FILE *p;
+printf("\nEnter mov name:");
+scanf("%s",addmov);
+p=fopen("mov.txt","a");
+fprintf(p,"\n%s",addmov);
+fclose(p);
+   printf("\nMovie added Successfully");
+    
+}
+void addtheatre()
+{
+static int i=0; char l[10]="list:";int m,n;
+ struct theatre t[10];
+ FILE *fp;
+ fp=fopen("tfile.txt","a");
+   printf("\n Enter theatre name:");
+   scanf("%s",&t[i].tname);
+   fprintf(fp," %s\n  %s",l,t[i].tname);
+   printf("\nEnter total movie in a theatre: ");
+   scanf("%d",&n);
+ for(m=0;m<n;m++)
+ {
+   printf("\nEnter Movie name: ");
+   scanf("%s",&t[i].movie[m].mname);
+   fprintf(fp,"\n   %s   ",&t[i].movie[m].mname);
+   printf("\nEnter Cost/ticket: ");
+   scanf("%d",&t[i].movie[m].cost);
+   fprintf(fp,"%d",t[i].movie[m].cost);
+   printf("Enter showtype: ");
+   scanf("%s",&t[i].movie[m].showtype);
+   fprintf(fp,"  %s",t[i].movie[m].showtype);
+ }
+  fprintf(fp,"\n");
+  fclose(fp);
+ }
+void user_login()
+{ char un[20],uph[11],uem[30];
+FILE *ufp;
+ufp=fopen("ufile","r");
+       if(ufp==NULL)
+       {
+       printf("\nNo data found");
+       }
+       else
+       { printf("\nUser History:");
+       while(getc(ufp)!=EOF)
+       {
+	 fscanf(ufp," %s %s %s",un,uph,uem);
+	 printf("\nName:%s\tPh.No:%s\tE-mail:%s",un,uph,uem);
+       }
+
+       }
+ fclose(ufp);
+ }
+ void displaymovie()
+ {
+     FILE *ti;
+   char mname[100][100];
+int i=0;int jl;
+ti=fopen("mov.txt","r");
+printf("\nList of movies\n");
+while(getc(ti)!=EOF)
+{
+fscanf(ti,"%s",mname[i]);
+i++;
+}
+fclose(ti);
+for(jl=0;jl<i;jl++)
+{
+printf("%s\t",mname[jl]);
+printf("\n");
+}
+}
+void displaytheatre()
+{
+FILE *po; char nm[100],ko[100];
+po=fopen("tfile.txt","r");
+printf("\n\t\t\t\t\tLIIST OF MOVIES\t\t\t\t\t");
+while(getc(po)!=EOF)
+{
+   fscanf(po,"%s",nm);
+   if(strcmp(nm,"list:")==0)
+   {
+   fscanf(po,"%s",ko);
+   printf("\n%s",ko);
+   }
+   else
+   {
+   continue;
+   }
+}
+fclose(po);
+}
+void searchmovie()
+{
+     FILE *mv;
+   char sm[100];char me[100][100];int i=0,h;int low,mid,k,l,high;int found=0;
+   printline();printf("\n");
+   printf("\nEnter the movie to search:\n");
+   scanf("%s",sm);
+   mv=fopen("mov.txt","r");
+   while(getc(mv)!=EOF)
+   {
+   fscanf(mv,"%s",me[i]);
+   i++;
+   }
+low=0;
+high=i;
+ k=(low+high)/3;
+ l=high-k;
+ if((strcmp(sm,me[k])==0)||(strcmp(sm,me[l])==0))
+ {
+ printf("\nMovie Found");
+ found++;
+ goto mhere;
+ }
+ else if((strcmp(sm,me[k])>0) && (strcmp(sm,me[l])<0))
+ {
+  low=k+1;
+  high=l-1;
+  }
+ else if(strcmp(sm,me[l])>0)
+ {
+ low=l+1;
+ }
+ else if(strcmp(sm,me[k])<0)
+ {
+ high=k-1;
+}
+while(low<=high)
+{
+mid=(low+high)/2;
+if(strcmp(sm,me[mid])==0)
+{
+printf("\nMOIVIE FOUND");
+found++;
+break;
+}
+else if(strcmp(sm,me[mid])>0)
+{
+low=mid+1;
+}
+else
+{
+high=mid-1;
+}
+}
+mhere:
+if(found==0)
+{
+printf("\nNOT FOUND");
+}
+
+}
+void searchtheatre()
+{
+FILE *t;
+char ttname[100],htname[100];int tfound=0;char sh[100],mm[100];int sd;
+printline();printf("\n");
+printf("\nEnter Theatre Name to search:");
+scanf("%s",ttname);
+t=fopen("tfile.txt","r");
+while(getc(t)!=EOF)
+{
+fscanf(t,"%s",htname);
+if(strcmp(ttname,htname)==0)
+{
+  tfound++;
+  printf("\nTheatre FOUND");
+
+  printf("\nList of Movies Available:\n");
+  printline();
+yhere:   fscanf(t," %s  %d  %s",mm,&sd,sh);
+    if((strcmp(mm,"list:")==0) ||(strcmp(sh,"list:")==0) || (getc(t)==EOF))
+  { break;
+  }else{
+  printf("\nMovie:%s\tCOST:%d\tShow:%s",mm,sd,sh);
+  goto yhere;
+  }
+  }
+}
+fclose(t);
+}
+void bookticket()
+{
+FILE *rt;FILE *we; int bmt,total;
+FILE *t;char bmname[100]; int w,sa,hfound=0;char cusname[100];
+char ttname[100],htname[100];int tfound=0;char sh[100],mm[100];int sd;  user_menu:
+start_menu:
+we=fopen("bookticd.txt","a");
+printf("Enter your name:");
+scanf("%s",cusname);
+fprintf(we,"\n\t%s",cusname);
+searcht:
+printf("\nEnter Theatre Name to search:");
+scanf("%s",ttname);
+	t=fopen("tfile.txt","r");
+while(getc(t)!=EOF)
+{
+fscanf(t,"%s",htname);
+if(strcmp(ttname,htname)==0)
+{
+  tfound++;
+  printf("\nTheatre FOUND"); printf("\nList of Movies Available");
+yhere:   fscanf(t,"%s\t%d\t%s",mm,&sd,sh);
+    if((strcmp(mm,"list:")==0) ||(strcmp(sh,"list:")==0) ||(getc(t)==EOF))
+  { break;
+  }else{
+  printf("\nMovie:%s\tCOST:%d\tShow:%s",mm,sd,sh);
+  goto yhere;
+  }
+  }
+}
+if(tfound==0)
+{printf("THEATRE NOT FOUND");
+printf("\nPRESS 1.search again 2.USER MENU 3.Main menu 4.exit");
+scanf("%d",&w);if(w==1){goto searcht;}else if(w==2){goto user_menu;}else if(w==3){goto start_menu;}
+else{ printf("\n");printline();
+printf("\n\3 Thanks for visiting\3\n"); printline();printf("\n");
+sleep(3);
+exit(0);}
+} ihere:
+printf("\nEnter movie name");
+scanf("%s",bmname);
+rt=fopen("tfile.txt","r");
+while(getc(rt)!=EOF)
+{
+fscanf(rt,"%s",htname);
+if(strcmp(ttname,htname)==0)
+{ khere:   fscanf(rt,"%s\t%d\t%s",mm,&sd,sh);
+    if((strcmp(mm,"list:")==0) ||(strcmp(sh,"list:")==0))
+  { break;
+  }
+  else if((strcmp(mm,bmname)==0) || (strcmp(sh,bmname)==0))
+  {
+  printf("\tCOST/ticket:%d",sd);
+  printf("\n Enter Number of Ticket:");
+  scanf("%d",&bmt);
+  total=sd*bmt;
+  fprintf(we,"\t%s\t%s\t%d\t%d",ttname,bmname,bmt,total);
+  printf("\n Total Cost:%d",total);  printline();
+  printf("\n\3 Ticket Booked successfully\3\nEnjoy \1 the show \3\n");
+  hfound++;
+  fclose(we);
+
+  break;
+  }
+  else
+  { goto khere;
+  }
+ }
+ }
+  if(hfound==0)
+  {
+  printf("\nMovie not found"); printline();
+  printf("\nEnter 1.search again 2.user_menu 3.main_menu 4.exit:");
+  scanf("%d",&sa);
+  if(sa==1){goto ihere;}else if(sa==2){goto user_menu;} else if(sa==3){goto start_menu;}
+  else{ printf("\n");printline();
+  printf("\n\1Thanks for visiting \3\n");
+   printline();
+   printf("\n");
+   sleep(3);
+   exit(0);}
+
+  }
+  fclose(rt);
+
+  }
+void ticketbookd()
+{
+FILE *yk;char oio[100];
+yk=fopen("bookticd.txt","r");   printf("\nTICKET BOOKING DETAILS:\n");
+while(getc(yk)!=EOF)
+{
+fscanf(yk,"%s",oio);
+printf("%s\n",oio);
+}
+if(yk==NULL)
+{
+printf("\nEmpty file");
+}
+}
+void printline()
+{
+int ww,qw;
+char jh[17]="-------------";
+for(ww=0;ww<6;ww++)
+{
+printf("%s",jh);
+}
+}
+void space()
+{
+int mz;char re[10]="   ";
+for(mz=0;mz<8;mz++)
+{
+printf("%s",re);
+}
+}
